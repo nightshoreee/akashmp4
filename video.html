@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+#fullscreenImage{
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+video{
+    display:none;
+    width:100vw;
+    height:100vh;
+    object-fit:contain;
+    background:black;
+}
+
+#rotateMessage{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    color:white;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-size:32px;
+    z-index:9999;
+}
+</style>
+
+</head>
+<body>
+
+<img id="fullscreenImage" src="fsimg.jpg">
+
+<video id="video">
+    <source src="video.mp4" type="video/mp4">
+</video>
+
+<div id="rotateMessage">
+    Rotate your screen to play
+</div>
+
+<script>
+const img = document.getElementById("fullscreenImage");
+const video = document.getElementById("video");
+const rotateMessage = document.getElementById("rotateMessage");
+
+function isMobile() {
+    return window.matchMedia("(max-width: 768px)").matches;
+}
+
+function checkOrientation() {
+
+    // Never show on desktop/laptop
+    if (!isMobile()) {
+        rotateMessage.style.display = "none";
+        return;
+    }
+
+    // Mobile only
+    if (window.innerHeight > window.innerWidth) {
+        rotateMessage.style.display = "flex";
+        video.pause();
+    } else {
+        rotateMessage.style.display = "none";
+
+        if (video.style.display === "block") {
+            video.play().catch(() => {});
+        }
+    }
+}
+
+img.onclick = async () => {
+
+    img.style.display = "none";
+    video.style.display = "block";
+
+    try {
+        await video.requestFullscreen();
+    } catch(e) {}
+
+    checkOrientation();
+
+    if (!isMobile() || window.innerWidth > window.innerHeight) {
+        video.play().catch(() => {});
+    }
+};
+
+checkOrientation();
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("orientationchange", checkOrientation);
+</script>
+
+</body>
+</html>

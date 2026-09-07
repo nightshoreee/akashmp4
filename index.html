@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Password</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="rotateOverlay">
+    <div>
+        <div style="font-size:70px;">📱</div>
+        <h2>Rotate your screen</h2>
+        <p>Please rotate your device to landscape to continue.</p>
+    </div>
+</div>
+
+<div class="container" id="mainContent">
+    <h1>Enter Password</h1>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="anniversary"
+        maxlength="8">
+
+    <button onclick="checkPassword()">
+        Continue
+    </button>
+
+    <p id="error"></p>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
