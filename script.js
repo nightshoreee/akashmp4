@@ -14,7 +14,7 @@ function checkPassword() {
     const password = document.getElementById("password").value;
     const error = document.getElementById("error");
 
-    if (password === "24022025") {
+    if (password === "251224") {
 
         error.textContent = "";
 
